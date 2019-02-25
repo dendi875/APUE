@@ -30,7 +30,7 @@
 #define FILE_MODE           (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 #define DIR_MODE            (FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)
 
-typedef void                Sigfunc(int);
+typedef void Sigfunc(int);
 
 #define min(a, b)           ((a) < (b) ? (a) : (b))
 #define max(a, b)           ((a) > (b) ? (a) : (b))
@@ -59,6 +59,13 @@ void    err_msg(const char *, ...);
  * 系统调用无关的致命错误
  */
 void    err_quit(const char *, ...) __attribute__((noreturn));
+
+
+/**
+ * 系统调用相关的致使错误。
+ * 打印一条消息，异常终止
+ */
+void    err_dump(const char *, ...) __attribute__((noreturn));
 
 
 #include "error.c"
