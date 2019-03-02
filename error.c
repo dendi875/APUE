@@ -59,7 +59,7 @@ static void err_doit(int errnoflag, int error, const char *fmt, va_list ap)
     char    buf[MAXLINE];
 
     /**
-     * 把可变参数，ap，按fmt格式化，写入玻buf字符数组中，最多写MAXLINE个字符
+     * 把可变参数，ap，按fmt格式化，写入buf字符数组中，最多写MAXLINE个字符
      */
     vsnprintf(buf, MAXLINE, fmt, ap);
     if (errnoflag) {
