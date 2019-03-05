@@ -1,8 +1,14 @@
 #ifndef _APUE_H
 #define _APUE_H
 
+/**
+ * 定义功能测试宏 _POSIX_C_SOURCE
+ */
 #define _POSIX_C_SOURCE     200809L
 
+/**
+ * 定义功能测试宏 _XOPEN_SOURCE
+ */
 #if defined(SOLARIS)
 #define _XOPEN_SOURCE       600
 #else
@@ -18,12 +24,12 @@
 #include <sys/ioctl.h>
 #endif
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
+#include <stdio.h>  /* 标准I/0 */
+#include <stdlib.h> /* 通过的实用工具 */
+#include <stddef.h> /* 常用定义 */
 #include <string.h> /* 字符串处理 */
 #include <unistd.h> /* 多种必要的POSIX函数与常量 */
-#include <signal.h>
+#include <signal.h> /* 信号处理 */
 
 #define MAXLINE             4096
 

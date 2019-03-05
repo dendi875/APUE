@@ -4,6 +4,9 @@
 
 static void err_doit(int, int, const char *, va_list);
 
+/**
+ * 系统调用相关的非致命错误
+ */
 void err_ret(const char *fmt, ...)
 {
     va_list ap;
@@ -13,6 +16,10 @@ void err_ret(const char *fmt, ...)
     va_end(ap);
 }
 
+/**
+ * 系统调用相关的致命错误
+ * 打印一条消息，正常终止
+ */
 void err_sys(const char *fmt, ...)
 {
     va_list ap;
@@ -23,6 +30,9 @@ void err_sys(const char *fmt, ...)
     exit(1);
 }
 
+/**
+ * 系统调用无关的非致命错误
+ */
 void err_msg(const char *fmt, ...)
 {
     va_list ap;
@@ -32,6 +42,10 @@ void err_msg(const char *fmt, ...)
     va_end(ap);
 }
 
+/**
+ * 系统调用无关的致命错误
+ * 打印一条消息，正常终止
+ */
 void err_quit(const char *fmt, ...)
 {
     va_list ap;
@@ -42,7 +56,10 @@ void err_quit(const char *fmt, ...)
     exit(1);
 }
 
-
+/**
+ * 系统调用相关的致使错误。
+ * 打印一条消息，异常终止
+ */
 void err_dump(const char *fmt, ...)
 {
     va_list ap;

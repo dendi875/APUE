@@ -1,3 +1,6 @@
+/**
+ * 测试标准输入能否被设置偏移量
+ */
 #include "apue.h"
 
 int main(int argc, char **argv)
