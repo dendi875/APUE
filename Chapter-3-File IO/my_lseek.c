@@ -17,7 +17,10 @@ int main(int argc, char **argv)
 }
 
 /**
- * lseek()中的l字符就代表入参和返回值off_t为loing int类型
+ * lseek()中的l字符就代表入参和返回值off_t为loing int类型．
+ * 通常，文件的当前偏移量应当是一个非负整数，但是，某些设备也可能允许负的偏移量．但对于普通文件，
+ * 其偏移量必须是非负值．因为偏移量可能是负值，所以在比较lseek的返回值时应当谨慎，不要测试它是否
+ * 小于0，而要测试它是否等于-1．
  *
  * 实验：
  * [root@localhost Chapter-3-File IO]# ./my_lseek
