@@ -33,8 +33,8 @@
 
 #define MAXLINE             4096
 
-#define FILE_MODE           (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
-#define DIR_MODE            (FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)
+#define FILE_MODE           (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)     // 644
+#define DIR_MODE            (FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)   // 755
 
 typedef void Sigfunc(int);
 
