@@ -38,12 +38,11 @@ int main(int argc, char **argv)
 /**
  * 实验：
  * [dendi875@localhost Chapter-3-File IO]$ ./hole
- *
- *
+
  * create()　创建一个新文件 等价于：
  * open(const char *pathname, O_WRONLY | O_CREAT | O_TRUNC, mode_t mode)
  * O_WRONLY 只写打开
- * O_CREAT  若此文件不存在则创建它。
+ * O_CREAT  若此文件不存在则创建它，默认有了O_CREAT所以creat()必须指定第三个参数(文件权限)
  * O_TRUNC  如果此文件存在，而且为只写或读-写成功打开，则将其长度截断为0
  * 返回值：
  *

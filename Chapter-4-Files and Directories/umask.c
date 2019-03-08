@@ -56,12 +56,12 @@ int main(void)
  * 注意：这里的程序有点费解，书上说的不太明白，其实creat()第二个参数mode和open()第三个参数mode
  * 并不是我们我们入参所指定的真正权限，而是需要通过运算得到mode & (~umask)。
  * 比如上面程序的例子：
- * 1、umask(O)；时creat("foo", RWRWRW)；create参数真正权限为110 110 110 & (~000 000 000)：110 110 110
+ * 1、umask(0)；时creat("foo", RWRWRW)；create参数真正权限为110 110 110 & (~000 000 000)：110 110 110
  * 所以foo文件权限为666。
  * 2、umask(S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);时creat("bar", RWRWRW)参数真正权限为
  * 110 110 110 & (~000 110 110)：110 000 000
  * 所以bar文件权限为600
- * 3、如果注释umask(O)这行代码；则默认的umask为022，create参数真正的权限为
+ * 3、如果注释umask(0)这行代码；则默认的umask为022，create参数真正的权限为
  * 110 110 110 & (~000 010 010)：110 100 100
  * 则foo文件权限644
  */
