@@ -1,7 +1,5 @@
 /**
  * linkat() 相对于文件描述符（目录的描述符）来创建硬链接
- *
- * 书本上没有这个函数的实例；自己写一个方便记忆和理解
  */
 
 #include "apue.h"
@@ -51,6 +49,7 @@ int main(int argc, char *argv[])
  * [root@localhost tmp]# cp -a /etc/passwd testdir1/
  *
  * 四、查看 /tmp目录下的总的容量和已使用的inode数
+ * [root@localhost tmp]# du -sb; df -i .
  *  84943   .
  *  文件系统              Inode  已用(I)  可用(I) 已用(I)%% 挂载点
  *  /dev/sda5            1105920  205763  900157   19% /

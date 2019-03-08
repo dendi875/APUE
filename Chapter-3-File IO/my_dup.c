@@ -7,7 +7,7 @@
 
 #define RWRWRW (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH) // 0666
 
-int main(int argc, char *argv[])
+int main(void)
 {
     int oldfd, newfd;
     off_t oldpos, newpos;
@@ -29,21 +29,21 @@ int main(int argc, char *argv[])
     }
     // 验证新老两个文件描述符他们的文件状态标志、文件偏移量、inode号是否一样
     if (old_status_flag == new_status_flag) {
-        err_msg("file status flags is the same.\n");
+        err_msg("file status flags is the same.");
     }
 
     if ((oldpos = lseek(oldfd, 0, SEEK_CUR)) < 0 || (newpos = lseek(newfd, 0, SEEK_CUR)) < 0) {
         err_sys("lseek error");
     }
     if (oldpos == newpos) {
-        err_msg("file offset is the same.\n");
+        err_msg("file offset is the same.");
     }
 
     if (fstat(oldfd, &oldbuf) < 0 || (fstat(newfd, &newbuf)) < 0) {
         err_sys("fstat error");
     }
     if (oldbuf.st_ino == newbuf.st_ino) {
-        err_msg("file inode number（%d） is the same.\n", oldbuf.st_ino);
+        err_msg("file inode number（%d） is the same.", oldbuf.st_ino);
     }
 
     close(oldfd);
@@ -53,6 +53,11 @@ int main(int argc, char *argv[])
 }
 
 /**
+ * [dendi875@localhost Chapter-3-File IO]$ ./my_dup
+ * file status flags is the same.
+ * file offset is the same.
+ * file inode number（5244） is the same.
+ *
  *dump 复制一个文件描述符，返回新的文件描述符一定是当前可用文件描述符中最小的数值。
  *很可能返回的值为3，因为0，1，2被当前的shell进程占用了。
  *

@@ -20,6 +20,6 @@ int main(int argc, char *argv[])
  * 测试：
  *[root@localhost Chapter-4-Files and Directories]# touch /tmp/testfile
  *[root@localhost Chapter-4-Files and Directories]# ./my_unlink /tmp/testfile
- *[root@localhost Chapter-4-Files and Directories]# ll /tmp/testfile
- * ls: 无法访问/tmp/testfile: 没有那个文件或目录
+ *[root@localhost Chapter-4-Files and Directories]# ./my_unlink /tmp/testfile
+ * file /tmp/testfile unlinked
  */
