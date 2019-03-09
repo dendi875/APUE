@@ -32,6 +32,7 @@ void err_sys(const char *fmt, ...)
 
 /**
  * 系统调用无关的非致命错误
+ * 进程不会终止
  */
 void err_msg(const char *fmt, ...)
 {
