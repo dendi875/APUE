@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 		printf("usage：my_fopen2 <filename>\n");
 		exit(EXIT_FAILURE);
 	}
-	// 以读的方式打开，如果文件不存在则创建，如果文件存在则截断文件长度为0
+	// 以写的方式打开，如果文件不存在则创建，如果文件存在则截断文件长度为0
 	if ((fp = fopen(argv[1], "w")) == NULL) {
 		perror("fopen error");
 		exit(EXIT_FAILURE);
