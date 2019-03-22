@@ -1,0 +1,3 @@
+parent first write to stdout
+child write to stdout
+parent second write to stdout
