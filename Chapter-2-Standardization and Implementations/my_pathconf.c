@@ -1,6 +1,5 @@
 /**
- * pathconf函数实例；测试当前系统文件名或目录名的最大长度（最大字节数）一个字符一个字节，
- * 不包括'\0'字节
+ * pathconf函数实例
  */
 
 #include "apue.h"
@@ -13,9 +12,22 @@ static void pr_pathconf(char *, char *, int);
 
 int main(void)
 {
-    pr_pathconf("NAME_MAX =", TEST_PATH, _PC_NAME_MAX);
 
-    exit(0);
+    // 测试当前系统文件名或目录名的最大长度（最大字节数）一个字符一个字节，不包括'\0'字节
+    pr_pathconf("当前系统文件名或目录名的最大长度（NAME_MAX） =", TEST_PATH, _PC_NAME_MAX);
+
+    // 测试系统默认的nice值
+#if defined(NZERO)
+    printf("系统默认的nice值（NZERO） =%d\n", NZERO);
+#elif defined(_SC_NZERO)
+    pr_sysconf("系统默认的nice值（NZERO） =", _SC_NZERO);
+#else
+    #error NZERO undefined
+#endif
+
+    // 查看系统每秒钟的时钟滴答数（clock ticks）
+    pr_sysconf("每秒钟的滴答数（CLK_TCK）=", _SC_CLK_TCK);
+
 }
 
 static void pr_sysconf(char *mesg,  int name)
