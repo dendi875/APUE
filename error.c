@@ -59,7 +59,7 @@ void err_quit(const char *fmt, ...)
 
 /**
  * 系统调用相关的致使错误。
- * 打印一条消息，异常终止
+ * 打印一条消息，异常终止（abort）
  */
 void err_dump(const char *fmt, ...)
 {
