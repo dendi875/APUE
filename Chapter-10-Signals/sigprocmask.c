@@ -51,7 +51,7 @@ int main(void)
      * 如果调用sigprocmask函数解除了对当前若干个未决信号的阻塞，则在该函数返回前，至少将其中之一递送给该进程
      */
     if (sigprocmask(SIG_SETMASK, &oldmask, NULL) < 0) {
-        err_sys("SIGQUIT unblocked\n");
+        err_sys("SIG_SETMASK error\n");
     }
 
     printf("SIGQUIT unblocked\n");
