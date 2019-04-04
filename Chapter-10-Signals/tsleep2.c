@@ -1,5 +1,6 @@
 /**
- * 在一个捕捉其它信号的程序中调用sleep2
+ * 在一个捕捉其它信号的程序中调用sleep，
+ * 这个例子说明了当涉及与其他信号的交互时，sleep2.c实现sleep函数的方式还是有问题的
  */
 #include "apue.h"
 #include <setjmp.h>
@@ -61,7 +62,10 @@ unsigned int sleep2(unsigned int seconds)
 }
 
 /*实验：
-比如在运行程序后的2秒钟时按ctrl+c键
+比如在运行程序后的2秒钟时按ctrl+c键，捕捉到SIGINT信号开始执行sig_int，但sig_int这个函数里for循环
+需要5秒但闹钟超时还剩3秒，这时3秒过后闹钟超时已到就执行sig_alrm函数，然后sleep2返回到调用它的地方
+unslept = sleep2(5)。这时sig_int这个信号处理程序就被提早终止了。
+
 [dendi875@localhost Chapter-10-Signals]$ ./tsleep2
 ^C
 sig_int starting
