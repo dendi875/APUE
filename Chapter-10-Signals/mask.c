@@ -19,11 +19,22 @@ void                            pr_mask(const char *str);
 
 int main(void)
 {
-    if (signal(SIGUSR1, sig_usr1) == SIG_ERR) {
-        err_sys("signal(SIGUSR1) error");
+    struct sigaction usr1_act, alrm_act;
+
+    usr1_act.sa_handler = sig_usr1;
+    sigemptyset(&usr1_act.sa_mask);
+    usr1_act.sa_flags = 0;
+
+    alrm_act.sa_handler = sig_alrm;
+    sigemptyset(&alrm_act.sa_mask);
+    alrm_act.sa_flags = 0;
+
+    if (sigaction(SIGUSR1, &usr1_act, NULL) < 0) {
+        err_sys("sigaction(SIGUSR1) error");
     }
-    if (signal(SIGALRM, sig_alrm) == SIG_ERR) {
-        err_sys("signal(SIGALRM) error");
+
+    if (sigaction(SIGALRM, &alrm_act, NULL) < 0) {
+        err_sys("sigaction(SIGALRM) error");
     }
 
     pr_mask("starting main：");
@@ -109,3 +120,28 @@ void pr_mask(const char *str)
 
     errno = errno_save;
 }
+
+
+/*实验：
+运行程序
+[dendi875@localhost Chapter-10-Signals]$ ./mask
+
+开另一个终端查看该程序的进程ID
+[dendi875@localhost ~]$ ps ajxf | grep mask
+ 1747  2125  2125  1747 pts/0     2125 S+     501   0:00          |   \_ ./mask
+
+给进程发送SIGUSR1信号
+[dendi875@localhost ~]$ kill -SIGUSR1 2125
+
+看前一个终端的输出
+[dendi875@localhost Chapter-10-Signals]$ ./mask
+starting main：
+starting sig_usr1： SIGUSR1
+in sig_alrm： SIGUSR1 SIGALRM
+finishing sig_usr1： SIGUSR1
+ending main：
+
+
+注意：该程序一定要用sigaction来注册信号捕捉函数。因为标准C库中的signal函数它相当于sigaction函数
+加了SA_NODEFER和SA_RESETHAND选项，所以当标准C库中的signal捕捉到信号呈，在执行其信号捕捉函数时，系统
+不会阻塞此信号。标准C库中的signal函数是不可靠信号*/

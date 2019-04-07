@@ -55,16 +55,16 @@ pid = 13581, glob = 6, var = 88 // 父进程变量值没有改变
 [dendi875@localhost Chapter-8-Process Control]$ ./fork1 > temp.out
 [dendi875@localhost Chapter-8-Process Control]$ cat temp.out
 a write to stdout
-befor fork                         // 这是父进程输出的
+befor fork                         // 这是子进程调用exit后输出的
 pid = 13591, glob = 7, var = 89    // 这是子进程的PID
-befor fork                         // 这是子进程输出的
+befor fork                         // 这是父进程调用exit后输出的
 pid = 13590, glob = 6, var = 88    // 这是父进程的PID
 
 // 标准输出（printf输出到stdout中）默认是行缓冲的（像实验一一样），当标准输出被重定向到文件
-// 中时（ ./fork1 > temp.out），标准输出是全缓冲的，fork之前执行一次printf，当fork函数执行
-// 时在父进程虚拟地址空间的数据段中的printf("befor fork\n");还没有被冲洗掉，fork后子进程
-// 复制了一份父进程中数据段也就把父进程中的缓冲区数据复制到子进程中，然后父进程sleep(2)等
+// 中时（ ./fork1 > temp.out），标准输出是全缓冲的，fork之前执行的那次printf并没有输出，
+还在缓冲区中，当fork函数执行时在父进程虚拟地址空间的数据段中的printf("befor fork\n");还没有被冲洗掉（没输出），而是把父进程中的缓冲区数据复制了子进程中，然后父进程sleep(2)等
 // 待子进程退出。当子进程调用exit退出程序时，因为exit正常终止程序时会默认执行标准I/O清理
 // 动作，比如fclose（fclose在关闭文件之前会冲洗缓冲区的输出数据，缓冲区中的任何输出都将被
-// 丢弃）。所以befor fork会被输出两次
+// 丢弃）。当父进程调用exit时也会执行标准I/O清理动作，所以befor fork会被输出两次
+
 */
