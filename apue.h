@@ -74,5 +74,13 @@ void    err_quit(const char *, ...) __attribute__((noreturn));
 void    err_dump(const char *, ...) __attribute__((noreturn));
 
 
+/**
+ * 系统调用无关的致命错误。
+ * 错误代码是通过参数传递进来的。
+ * 打印一条消息，然后正常终止
+ */
+void    err_exit(int, const char *, ...) __attribute__((noreturn));
+
+
 #include "error.c"
 #endif

@@ -72,6 +72,22 @@ void err_dump(const char *fmt, ...)
     exit(1);
 }
 
+/**
+ * 系统调用无关的致命错误。
+ * 错误代码是通过参数传递进来的。
+ * 打印一条消息，然后正常终止
+ */
+void err_exit(int error, const char *fmt, ...)
+{
+    va_list     ap;
+
+    va_start(ap, fmt);
+    err_doit(1, error, fmt, ap);
+    va_end(ap);
+    exit(1);
+}
+
+
 static void err_doit(int errnoflag, int error, const char *fmt, va_list ap)
 {
     char    buf[MAXLINE];
