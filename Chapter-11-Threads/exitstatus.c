@@ -1,5 +1,5 @@
 /**
- *使用pthread_join来获取线程的退出状态
+ *使用pthread_join来获取线程的退出状态（阻塞回收线程类似进程的wait函数）
  */
 
 #include "apue.h"

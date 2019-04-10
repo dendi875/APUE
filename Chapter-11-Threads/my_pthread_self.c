@@ -24,4 +24,13 @@ int main(void)
 [dendi875@localhost Chapter-11-Threads]$ ./my_pthread_self
 main thread：pid 8981 tid 3077555904 (0xb76fc6c0)
 
+查看LWP号：
+[dendi875@localhost Temp]$ ps -eLf
+
+查看某进程下的线程LWP号：
+[dendi875@localhost Temp]$ ps -Lw 2209
+  PID   LWP TTY      STAT   TIME COMMAND
+ 2209  2209 ?        Ssl    2:25 /usr/local/redis/bin/redis-server *:6379
+ 2209  2211 ?        Ssl    0:00 /usr/local/redis/bin/redis-server *:6379
+ 2209  2212 ?        Ssl    0:00 /usr/local/redis/bin/redis-server *:6379
 */

@@ -44,4 +44,5 @@ int main(void)
 main thread tid = 3078772416
 thread 1 tid = 3078769520
 p1.index = 1
-p1.name = dendi875*/
+p1.name = dendi875
+*/

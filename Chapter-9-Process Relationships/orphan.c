@@ -42,14 +42,16 @@ static void sig_hup(int signo)
     printf("SIGHUP received, pid = %ld\n", (long)getpid());
 }
 
+
+
+/*
 孤儿进程组：进程组中的每个进程的父进程都属于另一个会话。
 
 一个进程组不是孤儿进程组的条件是：
 该组中有一个进程，其父进程在属于同一会话的另一个组中。
 如果进程组不是孤儿进程组，那么在属于同一会话的另一个组中的父进程就有机会重新启动该组中停止的进程。
 
-
-/*1、父进程sleep(5)，子进程先运行
+1、父进程sleep(5)，子进程先运行
 2、子进程注册SIGHUP信号处理程序
 3、子进程用kill函数向自已发送SIGTSTP信号（相当于ctrl+z停止一个前台作业）。
 4、父进程开始运行，当父进程终止后，子进程成为孤儿进程，子进程的父进程为init进程
@@ -70,4 +72,5 @@ parent：pid = 21161, ppid = 17600, gpid = 21161, sid = 17600, tpgid = 21161
 child：pid = 21162, ppid = 21161, gpid = 21161, sid = 17600, tpgid = 21161
 [dendi875@localhost Chapter-9-Process Relationships]$ SIGHUP received, pid = 21162
 child：pid = 21162, ppid = 1, gpid = 21161, sid = 17600, tpgid = 17600
-read error 5 on controlling TTY*/
+read error 5 on controlling TTY
+*/
