@@ -28,6 +28,12 @@ int main(void)
     // 查看系统每秒钟的时钟滴答数（clock ticks）
     pr_sysconf("每秒钟的滴答数（CLK_TCK）=", _SC_CLK_TCK);
 
+    // 查看一个进程可以创建最大的线程数
+    pr_sysconf("进程可以创建的最大线程数（THREADS_MAX）=", _SC_THREAD_THREADS_MAX);
+
+    // 查看一个线程的栈可用的最小字节数
+    pr_sysconf("一个线程的栈可用的最小字节数（STACK_MIN）=", _SC_THREAD_STACK_MIN);
+
 }
 
 static void pr_sysconf(char *mesg,  int name)
