@@ -73,6 +73,21 @@ void err_dump(const char *fmt, ...)
 }
 
 /**
+ * 系统调用无关的非致使错误。
+ * 错误代码是通过参数传递进来的。
+ * 打印一条消息，然后继续运行
+ * cont（继续）
+ */
+void err_cont(int error, const char *fmt, ...)
+{
+    va_list     ap;
+
+    va_start(ap, fmt);
+    err_doit(1, error, fmt, ap);
+    va_end(ap);
+}
+
+/**
  * 系统调用无关的致命错误。
  * 错误代码是通过参数传递进来的。
  * 打印一条消息，然后正常终止
