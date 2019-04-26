@@ -39,9 +39,9 @@ void daemonize(const char *cmd)
     setsid();
 
     /**
-     * 基于System V的系统中，再次进行fork，终止父进程，继续使用子进程中的守护进程。
+     * 1、忽略SIGHUP信号
+     * 2、基于System V的系统中，再次进行fork，终止父进程，继续使用子进程中的守护进程。
      * 避免将来再次调用open且没有指定O_NOCTTY时会获取控制终端
-     * ，忽略SIGHUP信号
      */
      act.sa_handler = SIG_IGN;
      sigemptyset(&act.sa_mask);
