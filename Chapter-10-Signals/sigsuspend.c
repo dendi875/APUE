@@ -99,11 +99,27 @@ static void			sig_int(int signo)
 	pr_mask("\nin sig_int：");
 }
 
-/*实验：
+/*
+实验：
 [dendi875@localhost Chapter-10-Signals]$ ./sigsuspend
 program start：
 in critical region： SIGINT
 ^C
 in sig_int： SIGINT SIGUSR1
 after return from sigsuspend： SIGINT
-program exit：*/
+program exit：
+
+注意：sigsuspend挂起进程期间会用waitmask信号集暂时替代进程的阻塞信号集，所以发送 SIGINT 信号才能被递送
+到进程中。
+以本程序为例：该进程的阻塞信号集状态经过了6次变动
+1、调用 sigprocmask(SIG_BLOCK, &newmask, &oldmask) 之前进程阻塞信号集是空的（64位全为0）
+2、调用 sigprocmask(SIG_BLOCK, &newmask, &oldmask) 之后进程阻塞信号集中只有SIGINT是阻塞的
+（SIGINT对应位为1）
+3、调用 sigsuspend(&waitmask) 挂起进程期间阻塞信号集中只有SIGUSR1是阻塞的（SIGUSR1对应位为1），
+为什么SIGINT不是阻塞的因为进程阻塞信号集状态被sigsuspend调用暂时替换了，所以我们发送了 SIGINT 信号才能递送到进程
+4、当捕捉到一个信号在执行信号处理函数期间被捕捉的信号也自动加到入进程的阻塞信号集中，这时当前进程的阻塞信号集中SIGINT和SIGUSR1信号是阻塞的。
+5、当捕捉到一个信号从该信号处理函数返回后sigsuspend会恢复之前的阻塞信号集，这时进程的阻塞信号集
+中只有SIGINT是阻塞的（SIGINT对应位为1）
+6、当调用 sigprocmask(SIG_SETMASK, &oldmask, NULL) 恢复之前的阻塞信号集后，这时进程的阻塞信号集
+是空的（64位都是0）
+*/

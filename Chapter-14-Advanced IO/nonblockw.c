@@ -1,5 +1,5 @@
 /**
- * 非阻塞 write   block write
+ * 非阻塞 write   nonblock write
  */
 
 #include "apue.h"

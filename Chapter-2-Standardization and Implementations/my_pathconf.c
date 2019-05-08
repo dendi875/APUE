@@ -34,6 +34,9 @@ int main(void)
     // 查看一个线程的栈可用的最小字节数
     pr_sysconf("一个线程的栈可用的最小字节数（STACK_MIN）=", _SC_THREAD_STACK_MIN);
 
+    // 查看当前系统虚拟内存页大小，以字节为单位
+    pr_sysconf("虚拟内存页大小，字节为单位（SC_PAGE_SIZE）=", _SC_PAGE_SIZE);
+
 }
 
 static void pr_sysconf(char *mesg,  int name)
@@ -81,7 +84,12 @@ static void pr_pathconf(char *mesg, char *path, int name)
 /*
 实验：
 [dendi875@localhost Chapter-2-Standardization and Implementations]$ ./my_pathconf
-NAME_MAX = 255
+当前系统文件名或目录名的最大长度（NAME_MAX） = 255
+系统默认的nice值（NZERO） = 20
+每秒钟的滴答数（CLK_TCK）= 100
+进程可以创建的最大线程数（THREADS_MAX）= (no limit)
+一个线程的栈可用的最小字节数（STACK_MIN）= 16384
+虚拟内存页大小，字节为单位（SC_PAGE_SIZE）= 4096
 
 
 */

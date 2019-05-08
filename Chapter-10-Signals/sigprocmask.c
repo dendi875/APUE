@@ -48,7 +48,7 @@ int main(void)
 
     /**
      * 从阻塞信号集中解除对SIGQUIT的阻塞（解除对SIGQUIT的阻塞）
-     * 如果调用sigprocmask函数解除了对当前若干个未决信号的阻塞，则在该函数返回前，至少将其中之一递送给该进程
+     * 如果调用sigprocmask函数解除了对当前若干个未决信号的阻塞，则在该函数返回前，至少将其中之一递送给该进程（所以"caught SIGQUIT"比"SIGQUIT unblocked"先输出）
      */
     if (sigprocmask(SIG_SETMASK, &oldmask, NULL) < 0) {
         err_sys("SIG_SETMASK error\n");
