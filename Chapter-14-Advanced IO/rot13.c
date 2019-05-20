@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include <ctype.h>
 
-#define  BSZ  4096
+#define  BSZ  100
 
 unsigned char buf[BSZ];
 

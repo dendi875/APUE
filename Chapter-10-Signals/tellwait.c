@@ -57,11 +57,15 @@ static void sig_usr(int signo)
 }
 
 /**
- * 为TELL_PARENT、TELL_CHILD、WAIT_PARENT、WAIT_CHILD做一些准备工作
- * 0、使用可靠信号方式（sigaction）来注册SIGUSR1、SIGUSR2信号处理函数
- * 1、构造newmask用来阻塞SIGUSR1、SIGUSR2信号
- * 2、构造oldmask用来保存进程原来的阻塞信号集
- * 3、构造zeromask（空信号集）给sigsuspend用
+ * 做一些初始化准备工作
+ *
+ * 1、注册 SIGUSR1、SIGUSR2　信号处理函数，当接收到这两个信号时修改全局、易失、原子类型的变量
+ * 2、构造 newmask　来阻塞当前进程的 SIGUSR1、SIGUSR2　信号，构造 oldmask 来保存原有的阻塞信号集
+ * 为什么要阻塞这两个信号，是为了防止在调用TELL_PARENT、和TELL_CHILD之前有其它的进程向本进程
+ * 发送这两个信号修改了 sigflag 的值，防止在调用 TELL_WAIT 之后和调用 WAIT_PARENT 之前有其它进程向
+ * 自己发送 SIGUSR1或SIGUSR2 信号
+ * 3、构造 zeromask（空信号集） 来给 sigsuspend 函数使用，用空信号集在挂起进程期间临时替换进程的
+ * 阻塞信号集，以便我们能使用 kill 函数发送信号。 man sigsuspend
  */
 static void TELL_WAIT(void)
 {
@@ -107,10 +111,7 @@ static void TELL_PARENT(pid_t pid)
 static void WAIT_PARENT(void)
 {
 	/**
-	 * 本身sigsuspend就有pause挂起进程的功能，这里为什么还要加while，
-	 * 因为是为了保证一定要捕捉到了SIGUSR1信号sigsuspend才返回
-	 * （保证了是父进程向子进程发送了SIGUSR1信号才使sigsuspend返回），
-	 * 如果不加while，那么执行了除了SIGUSR1和SIGUSR2以外的其它信号处理函数也能使sigsuspend返回
+	 * 为什么用 while 用 if 不行吗？
 	 */
 	while (sigflag == 0) {
 		sigsuspend(&zeromask);

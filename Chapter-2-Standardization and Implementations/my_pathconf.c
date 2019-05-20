@@ -37,6 +37,9 @@ int main(void)
     // 查看当前系统虚拟内存页大小，以字节为单位
     pr_sysconf("虚拟内存页大小，字节为单位（SC_PAGE_SIZE）=", _SC_PAGE_SIZE);
 
+    // 查看 readv或writev函数可以使用最多的 iovec 结构体的个数
+    pr_sysconf("readv或writev函数可以使用最多的 iovec 结构体的个数（IOV_MAX） =", _SC_IOV_MAX);
+
 }
 
 static void pr_sysconf(char *mesg,  int name)
