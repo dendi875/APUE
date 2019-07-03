@@ -40,6 +40,9 @@ int main(void)
     // 查看 readv或writev函数可以使用最多的 iovec 结构体的个数
     pr_sysconf("readv或writev函数可以使用最多的 iovec 结构体的个数（IOV_MAX） =", _SC_IOV_MAX);
 
+    // 查看每个进程能够打开的最大文件数
+    pr_sysconf("进程最大打开文件数（SC_OPEN_MAX）=", _SC_OPEN_MAX);
+
 }
 
 static void pr_sysconf(char *mesg,  int name)
@@ -93,6 +96,7 @@ static void pr_pathconf(char *mesg, char *path, int name)
 进程可以创建的最大线程数（THREADS_MAX）= (no limit)
 一个线程的栈可用的最小字节数（STACK_MIN）= 16384
 虚拟内存页大小，字节为单位（SC_PAGE_SIZE）= 4096
-
+readv或writev函数可以使用最多的 iovec 结构体的个数（IOV_MAX） = 1024
+进程最大打开文件数（SC_OPEN_MAX）= 1024
 
 */
